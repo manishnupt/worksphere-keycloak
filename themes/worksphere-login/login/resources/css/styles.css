@@ -1,163 +1,368 @@
+/* WorkSphere login theme (Keycloak 22, parent=keycloak) */
 
 :root {
-    --ws-indigo: #6878ff;
-    --ws-text: #172033;
+    --ws-indigo: #5865f2;
+    --ws-indigo-soft: #8b97ff;
+    --ws-ink: #172033;
+    --ws-muted: #64708a;
     --ws-border: #e4e9f2;
+    --ws-panel-text: rgba(255, 255, 255, .72);
+    --ws-glass: rgba(255, 255, 255, .06);
+    --ws-glass-border: rgba(255, 255, 255, .12);
 }
 
-/* Main layout */
-body.login-pf {
+/* Keycloak puts .login-pf on <html>, so target body through it.
+   This also removes the default dark keycloak-bg.png. */
+html.login-pf,
+.login-pf body {
     min-height: 100vh;
     margin: 0;
-    background: #f7f8fc;
-    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #f5f7fb;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
 }
 
 .login-pf .login-pf-page {
     display: grid;
-    grid-template-columns: 1.05fr 0.95fr;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
     min-height: 100vh;
     padding: 0;
     align-items: stretch;
 }
 
-/* Branding panel */
-#kc-header {
+/* ---------- Left branding panel ---------- */
+
+.login-pf .login-pf-page .login-pf-page-header.ws-panel,
+#kc-header.ws-panel {
     position: relative;
     isolation: isolate;
     overflow: hidden;
     box-sizing: border-box;
     min-height: 100vh;
-    padding: 58px 8%;
+    margin: 0;
+    padding: 44px clamp(32px, 7%, 88px);
     display: flex;
-    align-items: center;
-    justify-content: center;
-    background:
-        radial-gradient(ellipse at 12% 12%,
-            rgba(104, 120, 255, .28), transparent 38%),
-        radial-gradient(ellipse at 85% 88%,
-            rgba(45, 128, 220, .2), transparent 38%),
-        linear-gradient(145deg, #10182e 0%, #1b2850 58%, #202e5a 100%);
-    color: #fff;
-}
-
-/* Top brand */
-#kc-header-wrapper {
-    position: absolute;
-    top: 46px;
-    left: 8%;
-    z-index: 3;
-    color: transparent;
-    font-size: 0;
+    flex-direction: column;
+    gap: 40px;
     text-align: left;
-}
-
-#kc-header-wrapper::before {
-    content: "W";
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-    margin-right: 12px;
-    vertical-align: middle;
-    border-radius: 13px;
-    background: linear-gradient(135deg, #91a0ff, #5865f2);
+    white-space: normal;
     color: #fff;
-    font-size: 25px;
-    font-weight: 800;
-    box-shadow: 0 8px 28px rgba(88, 101, 242, .35);
+    background:
+        radial-gradient(ellipse 60% 50% at 10% 0%, rgba(104, 120, 255, .32), transparent 70%),
+        radial-gradient(ellipse 55% 45% at 100% 100%, rgba(56, 189, 248, .16), transparent 70%),
+        linear-gradient(150deg, #0f172e 0%, #18234a 55%, #1e2b5c 100%);
 }
 
-#kc-header-wrapper::after {
-    content: "WorkSphere";
-    display: inline-block;
-    vertical-align: middle;
-    color: #fff;
-    font-size: 25px;
-    font-weight: 750;
-    letter-spacing: -.8px;
-}
-
-/* Headline */
-#kc-header::after {
-    content: "Everything at work,\A in sync.";
-    position: absolute;
-    z-index: 2;
-    top: 29%;
-    left: 9%;
-    right: 7%;
-    white-space: pre-line;
-    color: #fff;
-    font-size: clamp(32px, 3.2vw, 49px);
-    font-weight: 760;
-    line-height: 1.16;
-    letter-spacing: -1.8px;
-    pointer-events: none;
-}
-
-/* Floating HRMS dashboard illustration */
-#kc-header::before {
+/* Faint grid texture that fades toward the edges */
+#kc-header.ws-panel::before {
     content: "";
     position: absolute;
-    z-index: 1;
-    left: 12%;
-    right: 8%;
-    bottom: 8%;
-    height: 31%;
-    max-height: 260px;
-    border: 1px solid rgba(255, 255, 255, .19);
-    border-radius: 18px;
-    background:
-        /* Dashboard top bar */
-        linear-gradient(rgba(255,255,255,.11),
-                        rgba(255,255,255,.11)) 20px 20px / 74px 6px no-repeat,
-        linear-gradient(rgba(255,255,255,.07),
-                        rgba(255,255,255,.07)) 20px 40px / 118px 4px no-repeat,
-
-        /* Three summary cards */
-        linear-gradient(135deg, rgba(123,139,255,.42),
-                              rgba(123,139,255,.12)) 20px 72px / 28% 65px no-repeat,
-        linear-gradient(135deg, rgba(67,190,191,.25),
-                              rgba(67,190,191,.08)) 36% 72px / 28% 65px no-repeat,
-        linear-gradient(135deg, rgba(255,255,255,.13),
-                              rgba(255,255,255,.04)) 68% 72px / 28% 65px no-repeat,
-
-        /* Chart area */
-        linear-gradient(160deg, transparent 46%, #8795ff 47%,
-                        #8795ff 49%, transparent 50%) 22px 155px / 55% 48px no-repeat,
-        linear-gradient(rgba(255,255,255,.08),
-                        rgba(255,255,255,.08)) 22px 155px / 55% 48px no-repeat,
-        rgba(17, 27, 54, .66);
-    box-shadow: 0 28px 70px rgba(0, 0, 0, .22);
-    transform: rotate(-2deg);
-    pointer-events: none;
+    inset: 0;
+    z-index: -1;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, .045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, .045) 1px, transparent 1px);
+    background-size: 44px 44px;
+    -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 45%, #000 20%, transparent 75%);
+    mask-image: radial-gradient(ellipse 80% 70% at 50% 45%, #000 20%, transparent 75%);
 }
 
-/* Existing login card */
-.login-pf .card-pf {
+/* Brand */
+#kc-header-wrapper.ws-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -.5px;
+    line-height: 1;
+    text-transform: none;
+}
+
+.ws-brand__mark {
+    display: inline-grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #9aa5ff, var(--ws-indigo));
+    font-size: 21px;
+    font-weight: 800;
+    box-shadow: 0 8px 24px rgba(88, 101, 242, .4), inset 0 1px 0 rgba(255, 255, 255, .3);
+}
+
+/* Headline block */
+.ws-hero {
+    margin-top: auto;
+    max-width: 520px;
+}
+
+.ws-hero__title {
+    margin: 0 0 18px;
+    color: #fff;
+    font-size: clamp(34px, 3.3vw, 50px);
+    font-weight: 750;
+    line-height: 1.1;
+    letter-spacing: -1.6px;
+}
+
+.ws-hero__title span {
+    background: linear-gradient(90deg, #a5b0ff, #67d4f5);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.login-pf-page #kc-header .ws-hero__text {
+    margin: 0 0 26px;
+    padding: 0;
+    max-width: 440px;
+    color: var(--ws-panel-text);
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.ws-highlights {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ws-highlights li {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 13px 7px 10px;
+    border: 1px solid var(--ws-glass-border);
+    border-radius: 999px;
+    background: var(--ws-glass);
+    color: rgba(255, 255, 255, .85);
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.ws-highlights li::before {
+    content: "";
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230f172e' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E") center / 11px no-repeat,
+        #7dd3a8;
+}
+
+/* Product preview */
+.ws-preview {
+    position: relative;
+    width: min(100%, 540px);
+    margin: 0 auto auto 0;
+    padding: 48px 100px 52px 0;
+}
+
+.ws-card {
+    box-sizing: border-box;
+    border: 1px solid var(--ws-glass-border);
+    border-radius: 16px;
+    background: rgba(20, 30, 62, .72);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 24px 60px rgba(4, 8, 24, .35);
+}
+
+.ws-card--main {
+    padding: 20px 22px 18px;
+}
+
+.ws-card__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.ws-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #7dd3a8;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.ws-live::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+    box-shadow: 0 0 0 4px rgba(125, 211, 168, .18);
+}
+
+.ws-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.ws-stats div {
+    padding: 11px 12px;
+    border-radius: 11px;
+    background: rgba(255, 255, 255, .05);
+}
+
+.ws-stats b,
+.ws-card--float b {
+    display: block;
+    color: #fff;
+    font-weight: 700;
+}
+
+.ws-stats b {
+    font-size: 21px;
+    letter-spacing: -.5px;
+}
+
+.ws-stats small,
+.ws-card--float small {
+    color: rgba(255, 255, 255, .55);
+    font-size: 12px;
+}
+
+.ws-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    height: 92px;
+    padding-bottom: 20px;
+}
+
+.ws-chart span {
+    position: relative;
+    flex: 1;
+    height: var(--h);
+    border-radius: 7px 7px 3px 3px;
+    background: linear-gradient(180deg, rgba(139, 151, 255, .55), rgba(139, 151, 255, .14));
+}
+
+.ws-chart span.is-today {
+    background: linear-gradient(180deg, #8b97ff, #5865f2);
+    box-shadow: 0 6px 18px rgba(88, 101, 242, .45);
+}
+
+.ws-chart i {
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    right: 0;
+    color: rgba(255, 255, 255, .45);
+    font-size: 11px;
+    font-style: normal;
+    text-align: center;
+}
+
+.ws-card--float {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 12px 16px 12px 12px;
+    border-radius: 14px;
+    background: rgba(28, 40, 80, .9);
+    font-size: 13px;
+    line-height: 1.35;
+    white-space: nowrap;
+}
+
+.ws-card--leave {
+    top: 0;
+    right: 0;
+}
+
+.ws-card--payroll {
+    bottom: 0;
+    right: 0;
+}
+
+.ws-icon {
+    display: inline-grid;
+    place-items: center;
+    flex: none;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+}
+
+.ws-icon svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.ws-icon--green {
+    background: rgba(125, 211, 168, .16);
+    color: #7dd3a8;
+}
+
+.ws-icon--indigo {
+    background: rgba(139, 151, 255, .18);
+    color: #a5b0ff;
+}
+
+/* Footer */
+.ws-footer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, .45);
+    font-size: 13px;
+}
+
+.ws-footer svg {
+    width: 15px;
+    height: 15px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+}
+
+/* ---------- Login card ---------- */
+
+.login-pf .login-pf-page .card-pf {
     align-self: center;
     justify-self: center;
     width: min(100% - 64px, 420px);
     max-width: 420px;
     margin: 0;
-    padding: 38px 30px;
+    padding: 40px 34px;
     box-sizing: border-box;
-    border: 1px solid rgba(226,232,240,.85);
+    border: 1px solid var(--ws-border);
     border-radius: 20px;
     background: #fff;
-    box-shadow: 0 20px 65px rgba(31,41,75,.09);
+    box-shadow: 0 24px 70px rgba(31, 41, 75, .08);
 }
 
 #kc-page-title {
-    margin-top: 0;
-    color: var(--ws-text);
+    margin: 0 0 6px;
+    color: var(--ws-ink);
     font-size: 28px;
     font-weight: 750;
     letter-spacing: -.8px;
+    text-align: left;
 }
 
-/* Inputs */
 .login-pf label {
     color: #354158;
     font-size: 13px;
@@ -176,7 +381,7 @@ body.login-pf {
     border: 1px solid var(--ws-border);
     border-radius: 10px;
     background: #fbfcff;
-    color: var(--ws-text);
+    color: var(--ws-ink);
     box-shadow: none;
     transition: border-color .2s, box-shadow .2s;
 }
@@ -184,10 +389,9 @@ body.login-pf {
 .login-pf input:focus {
     border-color: var(--ws-indigo);
     outline: none;
-    box-shadow: 0 0 0 4px rgba(104,120,255,.13);
+    box-shadow: 0 0 0 4px rgba(88, 101, 242, .13);
 }
 
-/* Login button */
 .login-pf input[type="submit"],
 #kc-login {
     box-sizing: border-box;
@@ -200,18 +404,18 @@ body.login-pf {
     color: #fff;
     font-size: 15px;
     font-weight: 650;
-    box-shadow: 0 8px 18px rgba(88,101,242,.2);
+    box-shadow: 0 8px 18px rgba(88, 101, 242, .2);
     transition: transform .2s, box-shadow .2s;
 }
 
 .login-pf input[type="submit"]:hover,
 #kc-login:hover {
     transform: translateY(-1px);
-    box-shadow: 0 10px 24px rgba(88,101,242,.3);
+    box-shadow: 0 10px 24px rgba(88, 101, 242, .3);
 }
 
 .login-pf a {
-    color: #5865f2;
+    color: var(--ws-indigo);
     text-decoration: none;
 }
 
@@ -223,56 +427,70 @@ body.login-pf {
     border-radius: 10px;
 }
 
-/* Responsive layout */
-@media (max-width: 800px) {
+/* ---------- Responsive ---------- */
+
+/* Short screens: drop the preview so the headline keeps breathing room */
+@media (max-height: 760px) and (min-width: 901px) {
+    .ws-preview {
+        display: none;
+    }
+
+    .ws-hero {
+        margin-bottom: auto;
+    }
+}
+
+@media (max-width: 1180px) and (min-width: 901px) {
+    .ws-card--float {
+        display: none;
+    }
+
+    .ws-preview {
+        padding: 0;
+    }
+}
+
+/* Tablet & phone: stack panel above the form */
+@media (max-width: 900px) {
     .login-pf .login-pf-page {
-        grid-template-columns: 1fr;
-        gap: 22px;
-        padding: 16px;
+        grid-template-columns: minmax(0, 1fr);
+        align-content: start;
+        gap: 24px;
+        padding: 16px 16px 32px;
     }
 
-    #kc-header {
-        min-height: 300px;
-        border-radius: 18px;
-        padding: 24px;
+    #kc-header.ws-panel {
+        min-height: 0;
+        padding: 28px 24px 30px;
+        gap: 28px;
+        border-radius: 20px;
     }
 
-    #kc-header-wrapper {
-        top: 24px;
-        left: 24px;
+    .ws-hero {
+        margin-top: 0;
     }
 
-    #kc-header-wrapper::before {
-        width: 36px;
-        height: 36px;
-        border-radius: 11px;
-        font-size: 21px;
-    }
-
-    #kc-header-wrapper::after {
-        font-size: 22px;
-    }
-
-    #kc-header::after {
-        top: 105px;
-        left: 24px;
-        right: 20px;
-        font-size: clamp(29px, 6vw, 40px);
+    .ws-hero__title {
+        font-size: clamp(28px, 6vw, 38px);
         letter-spacing: -1px;
     }
 
-    #kc-header::before {
-        left: 28%;
-        right: 7%;
-        bottom: 12px;
-        height: 65px;
-        opacity: .65;
+    .login-pf-page #kc-header .ws-hero__text {
+        font-size: 15px;
+        margin-bottom: 20px;
     }
 
-    .login-pf .card-pf {
+    .ws-preview,
+    .ws-footer {
+        display: none;
+    }
+
+    .login-pf .login-pf-page .card-pf {
         width: 100%;
-        max-width: 460px;
+        max-width: 480px;
         padding: 28px 22px;
+        border-radius: 20px;
+        box-shadow: 0 12px 40px rgba(31, 41, 75, .07);
     }
 
     #kc-page-title {
@@ -281,11 +499,7 @@ body.login-pf {
 }
 
 @media (max-width: 420px) {
-    #kc-header {
-        min-height: 270px;
-    }
-
-    .login-pf .card-pf {
-        padding: 24px 18px;
+    .ws-highlights li:nth-child(3) {
+        display: none;
     }
 }
