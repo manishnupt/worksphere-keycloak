@@ -1,0 +1,30 @@
+/* WorkSphere login theme */
+
+.login-pf body {
+    background: #f3f6fb;
+}
+
+.login-pf-page {
+    padding-top: 3rem;
+}
+
+.card-pf {
+    border-radius: 14px;
+    box-shadow: 0 8px 30px rgba(15, 23, 42, 0.10);
+}
+
+#kc-header-wrapper {
+    color: #173b65;
+    font-weight: 700;
+}
+
+#kc-login {
+    background-color: #2563eb;
+    border-color: #2563eb;
+    border-radius: 8px;
+}
+
+#kc-login:hover {
+    background-color: #1d4ed8;
+    border-color: #1d4ed8;
+}
