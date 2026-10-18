@@ -1,168 +1,217 @@
 
-/* WorkSphere — premium split-screen login */
-
 :root {
-    --ws-primary: #5865f2;
-    --ws-primary-hover: #4551df;
-    --ws-ink: #172033;
-    --ws-muted: #78849a;
-    --ws-border: #e3e8f0;
+    --ws-indigo: #6878ff;
+    --ws-text: #172033;
+    --ws-border: #e4e9f2;
 }
 
-/* Full-screen layout */
+/* Main layout */
 body.login-pf {
     min-height: 100vh;
     margin: 0;
     background: #f7f8fc;
-    color: var(--ws-ink);
-    font-family: Inter, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", sans-serif;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 .login-pf .login-pf-page {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
     min-height: 100vh;
     padding: 0;
-    display: grid;
-    grid-template-columns: minmax(0, 1.05fr) minmax(380px, 0.95fr);
     align-items: stretch;
 }
 
-/* Left branding panel */
+/* Branding panel */
 #kc-header {
-    min-height: 100vh;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
     box-sizing: border-box;
-    padding: 48px 9%;
+    min-height: 100vh;
+    padding: 58px 8%;
     display: flex;
-    flex-direction: column;
+    align-items: center;
     justify-content: center;
     background:
-        radial-gradient(ellipse at 15% 20%,
-            rgba(103, 119, 255, 0.28), transparent 40%),
-        radial-gradient(ellipse at 90% 85%,
-            rgba(43, 170, 210, 0.15), transparent 38%),
-        linear-gradient(145deg, #111a32, #1c2850 65%, #202b55);
+        radial-gradient(ellipse at 12% 12%,
+            rgba(104, 120, 255, .28), transparent 38%),
+        radial-gradient(ellipse at 85% 88%,
+            rgba(45, 128, 220, .2), transparent 38%),
+        linear-gradient(145deg, #10182e 0%, #1b2850 58%, #202e5a 100%);
     color: #fff;
 }
 
+/* Top brand */
 #kc-header-wrapper {
-    color: #fff;
+    position: absolute;
+    top: 46px;
+    left: 8%;
+    z-index: 3;
+    color: transparent;
     font-size: 0;
-    font-weight: 700;
     text-align: left;
-    line-height: 1.4;
 }
 
-/* CSS-generated default logo */
 #kc-header-wrapper::before {
     content: "W";
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 48px;
-    height: 48px;
-    margin-bottom: 30px;
-    border-radius: 15px;
-    background: linear-gradient(135deg, #8790ff, #5865f2);
+    width: 44px;
+    height: 44px;
+    margin-right: 12px;
+    vertical-align: middle;
+    border-radius: 13px;
+    background: linear-gradient(135deg, #91a0ff, #5865f2);
     color: #fff;
-    font-size: 26px;
+    font-size: 25px;
     font-weight: 800;
-    box-shadow: 0 10px 30px rgba(88, 101, 242, 0.3);
+    box-shadow: 0 8px 28px rgba(88, 101, 242, .35);
 }
 
 #kc-header-wrapper::after {
     content: "WorkSphere";
-    display: block;
+    display: inline-block;
+    vertical-align: middle;
     color: #fff;
-    font-size: 34px;
+    font-size: 25px;
     font-weight: 750;
-    letter-spacing: -1.3px;
+    letter-spacing: -.8px;
 }
 
-/* Right-hand login panel */
+/* Headline */
+#kc-header::after {
+    content: "Everything at work,\A in sync.";
+    position: absolute;
+    z-index: 2;
+    top: 29%;
+    left: 9%;
+    right: 7%;
+    white-space: pre-line;
+    color: #fff;
+    font-size: clamp(32px, 3.2vw, 49px);
+    font-weight: 760;
+    line-height: 1.16;
+    letter-spacing: -1.8px;
+    pointer-events: none;
+}
+
+/* Floating HRMS dashboard illustration */
+#kc-header::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    left: 12%;
+    right: 8%;
+    bottom: 8%;
+    height: 31%;
+    max-height: 260px;
+    border: 1px solid rgba(255, 255, 255, .19);
+    border-radius: 18px;
+    background:
+        /* Dashboard top bar */
+        linear-gradient(rgba(255,255,255,.11),
+                        rgba(255,255,255,.11)) 20px 20px / 74px 6px no-repeat,
+        linear-gradient(rgba(255,255,255,.07),
+                        rgba(255,255,255,.07)) 20px 40px / 118px 4px no-repeat,
+
+        /* Three summary cards */
+        linear-gradient(135deg, rgba(123,139,255,.42),
+                              rgba(123,139,255,.12)) 20px 72px / 28% 65px no-repeat,
+        linear-gradient(135deg, rgba(67,190,191,.25),
+                              rgba(67,190,191,.08)) 36% 72px / 28% 65px no-repeat,
+        linear-gradient(135deg, rgba(255,255,255,.13),
+                              rgba(255,255,255,.04)) 68% 72px / 28% 65px no-repeat,
+
+        /* Chart area */
+        linear-gradient(160deg, transparent 46%, #8795ff 47%,
+                        #8795ff 49%, transparent 50%) 22px 155px / 55% 48px no-repeat,
+        linear-gradient(rgba(255,255,255,.08),
+                        rgba(255,255,255,.08)) 22px 155px / 55% 48px no-repeat,
+        rgba(17, 27, 54, .66);
+    box-shadow: 0 28px 70px rgba(0, 0, 0, .22);
+    transform: rotate(-2deg);
+    pointer-events: none;
+}
+
+/* Existing login card */
 .login-pf .card-pf {
     align-self: center;
     justify-self: center;
     width: min(100% - 64px, 420px);
     max-width: 420px;
     margin: 0;
-    padding: 38px 34px;
+    padding: 38px 30px;
     box-sizing: border-box;
-    background: #fff;
-    border: 1px solid rgba(226, 232, 240, 0.8);
+    border: 1px solid rgba(226,232,240,.85);
     border-radius: 20px;
-    box-shadow: 0 20px 65px rgba(31, 41, 75, 0.08);
+    background: #fff;
+    box-shadow: 0 20px 65px rgba(31,41,75,.09);
 }
 
-/* Form heading */
 #kc-page-title {
-    margin: 0 0 12px;
-    color: var(--ws-ink);
-    font-size: 29px;
+    margin-top: 0;
+    color: var(--ws-text);
+    font-size: 28px;
     font-weight: 750;
-    letter-spacing: -0.8px;
-    line-height: 1.3;
+    letter-spacing: -.8px;
 }
 
-/* Labels */
+/* Inputs */
 .login-pf label {
     color: #354158;
     font-size: 13px;
     font-weight: 600;
 }
 
-/* Inputs */
 .login-pf input[type="text"],
 .login-pf input[type="password"],
 .login-pf input[type="email"],
 .login-pf input[type="tel"] {
+    box-sizing: border-box;
     width: 100%;
     min-height: 48px;
-    box-sizing: border-box;
     margin-top: 7px;
     padding: 12px 14px;
     border: 1px solid var(--ws-border);
     border-radius: 10px;
     background: #fbfcff;
-    color: var(--ws-ink);
-    font-size: 14px;
+    color: var(--ws-text);
     box-shadow: none;
     transition: border-color .2s, box-shadow .2s;
 }
 
 .login-pf input:focus {
-    border-color: var(--ws-primary);
+    border-color: var(--ws-indigo);
     outline: none;
-    box-shadow: 0 0 0 4px rgba(88, 101, 242, 0.12);
-    background: #fff;
+    box-shadow: 0 0 0 4px rgba(104,120,255,.13);
 }
 
-/* Primary button */
+/* Login button */
 .login-pf input[type="submit"],
 #kc-login {
+    box-sizing: border-box;
     width: 100%;
     min-height: 49px;
     margin-top: 12px;
-    border: none;
+    border: 0;
     border-radius: 10px;
-    background: linear-gradient(100deg, #5865f2, #6b73f8);
+    background: linear-gradient(100deg, #5865f2, #7377fa);
     color: #fff;
     font-size: 15px;
     font-weight: 650;
-    box-shadow: 0 8px 18px rgba(88, 101, 242, 0.2);
-    transition: transform .2s, box-shadow .2s, background .2s;
+    box-shadow: 0 8px 18px rgba(88,101,242,.2);
+    transition: transform .2s, box-shadow .2s;
 }
 
 .login-pf input[type="submit"]:hover,
 #kc-login:hover {
-    background: var(--ws-primary-hover);
-    box-shadow: 0 10px 22px rgba(88, 101, 242, 0.28);
     transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba(88,101,242,.3);
 }
 
-/* Links and secondary text */
 .login-pf a {
-    color: var(--ws-primary);
-    font-weight: 500;
+    color: #5865f2;
     text-decoration: none;
 }
 
@@ -170,40 +219,54 @@ body.login-pf {
     text-decoration: underline;
 }
 
-.login-pf .subtitle,
-#kc-info-wrapper {
-    color: var(--ws-muted);
-}
-
-/* Errors and alerts */
 .login-pf .alert {
     border-radius: 10px;
 }
 
-/* Mobile and tablet */
+/* Responsive layout */
 @media (max-width: 800px) {
     .login-pf .login-pf-page {
         grid-template-columns: 1fr;
-        padding: 28px 16px;
-        gap: 24px;
+        gap: 22px;
+        padding: 16px;
     }
 
     #kc-header {
-        min-height: auto;
-        padding: 20px 24px;
+        min-height: 300px;
         border-radius: 18px;
+        padding: 24px;
+    }
+
+    #kc-header-wrapper {
+        top: 24px;
+        left: 24px;
     }
 
     #kc-header-wrapper::before {
-        width: 40px;
-        height: 40px;
-        margin-bottom: 12px;
-        border-radius: 12px;
-        font-size: 22px;
+        width: 36px;
+        height: 36px;
+        border-radius: 11px;
+        font-size: 21px;
     }
 
     #kc-header-wrapper::after {
-        font-size: 26px;
+        font-size: 22px;
+    }
+
+    #kc-header::after {
+        top: 105px;
+        left: 24px;
+        right: 20px;
+        font-size: clamp(29px, 6vw, 40px);
+        letter-spacing: -1px;
+    }
+
+    #kc-header::before {
+        left: 28%;
+        right: 7%;
+        bottom: 12px;
+        height: 65px;
+        opacity: .65;
     }
 
     .login-pf .card-pf {
@@ -218,8 +281,8 @@ body.login-pf {
 }
 
 @media (max-width: 420px) {
-    .login-pf .login-pf-page {
-        padding: 14px;
+    #kc-header {
+        min-height: 270px;
     }
 
     .login-pf .card-pf {
